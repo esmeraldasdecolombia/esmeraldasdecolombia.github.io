@@ -1,0 +1,6 @@
+
+body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #046c4e; margin: 0; padding: 0; }
+header { background-color: #ffffff; padding: 20px; text-align: center; border-bottom: 2px solid #d4af37; }
+.logo { height: 80px; }
+main { padding: 20px; }
+footer { background-color: #121212; color: #fff; text-align: center; padding: 10px 0; }

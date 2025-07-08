@@ -1,1 +1,3 @@
-Este es el sitio oficial de Esmeraldas de Colombia.
+# Esmeraldas de Colombia
+
+Sitio oficial de la joyería online.

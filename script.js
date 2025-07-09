@@ -1,38 +1,39 @@
 
 async function cargarProductos() {
-  const response = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRoODpPJHcq-NybV0eOi7PGHeMe23NqRscTKQparQp8si0pUQJqkmCif6kc2tD2r6LXmsbTLYblMW4Z/pub?gid=0&single=true&output=csv");
-  const data = await response.text();
-  const rows = data.split("\n").slice(1);
-  const productos = rows.map(row => {
-    const columnas = row.split(",");
-    return {
-      codigo: columnas[0],
-      nombre: columnas[1],
-      descripcion: columnas[2],
-      precio: columnas[3],
-      stock: columnas[4],
-      categoria: columnas[5],
-      imagen1: columnas[6],
-      imagen2: columnas[7],
-      oferta: columnas[8],
-    };
-  });
+  try {
+    const response = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRoODpPJHcq-NybV0eOi7PGHeMe23NqRscTKQparQp8si0pUQJqkmCif6kc2tD2r6LXmsbTLYblMW4Z/pub?gid=0&single=true&output=csv");
+    const csvText = await response.text();
 
-  const contenedor = document.getElementById("catalogo");
-  contenedor.innerHTML = "";
-  productos.forEach(prod => {
-    if (!prod.nombre) return;
-    contenedor.innerHTML += `
-      <div class="producto">
-        <img src="${prod.imagen1}" alt="${prod.nombre}"/>
-        <h3>${prod.nombre}</h3>
-        <p>${prod.descripcion}</p>
-        <p><strong>${prod.precio} COP</strong></p>
-        <p>Stock: ${prod.stock}</p>
-        <button onclick="agregarCarrito('${prod.codigo}')">Añadir al carrito</button>
-      </div>
-    `;
-  });
+    const parsed = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true
+    });
+
+    const productos = parsed.data;
+    const contenedor = document.getElementById("catalogo");
+    contenedor.innerHTML = "";
+
+    if (!productos.length) {
+      document.getElementById("mensajeError").textContent = "No se encontraron productos en la hoja.";
+      return;
+    }
+
+    productos.forEach(prod => {
+      if (!prod.nombre || !prod.imagen1) return;
+      contenedor.innerHTML += `
+        <div class="producto">
+          <img src="${prod.imagen1}" alt="${prod.nombre}" />
+          <h3>${prod.nombre}</h3>
+          <p>${prod.descripcion}</p>
+          <p><strong>${prod.precio} COP</strong></p>
+          <p>Stock: ${prod.stock}</p>
+          <button onclick="agregarCarrito('${prod.codigo}')">Añadir al carrito</button>
+        </div>
+      `;
+    });
+  } catch (err) {
+    document.getElementById("mensajeError").textContent = "Error al cargar productos: " + err.message;
+  }
 }
 
 function agregarCarrito(codigo) {

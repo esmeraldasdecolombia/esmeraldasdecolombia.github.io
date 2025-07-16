@@ -36,9 +36,19 @@
     <div id="mensajeError" style="color:red; margin-top:20px;"></div>
   </main>
 
+  <!-- Botón flotante para mostrar/ocultar el carrito -->
+  <button id="toggleCarrito" onclick="toggleCarrito()">🛒 Ver Carrito</button>
+
+  <!-- Contenedor del carrito -->
+  <div id="carrito">
+    <h3>Tu carrito</h3>
+    <ul id="listaCarrito"></ul>
+    <div class="total" id="totalCarrito">Total: 0 COP</div>
+    <button onclick="vaciarCarrito()">Vaciar carrito</button>
+  </div>
+
   <footer>
     <p>&copy; 2025 Esmeraldas de Colombia</p>
   </footer>
 </body>
 </html>
-

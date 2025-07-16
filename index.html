@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +15,6 @@
   </header>
 
   <main>
-    <!-- Filtros y buscador -->
     <section id="filtros">
       <input type="text" id="buscador" placeholder="Buscar por nombre o código..." />
       <div id="categorias">
@@ -30,16 +28,13 @@
       </div>
     </section>
 
-    <!-- Catálogo -->
     <h2>Catálogo</h2>
     <div id="catalogo">Cargando productos...</div>
     <div id="mensajeError" style="color:red; margin-top:20px;"></div>
   </main>
 
-  <!-- Botón flotante para mostrar/ocultar el carrito -->
   <button id="toggleCarrito" onclick="toggleCarrito()">🛒 Ver Carrito</button>
 
-  <!-- Contenedor del carrito -->
   <div id="carrito">
     <h3>Tu carrito</h3>
     <ul id="listaCarrito"></ul>
@@ -47,8 +42,7 @@
     <button onclick="vaciarCarrito()">Vaciar carrito</button>
   </div>
 
-  <!-- Modal de reseñas -->
-  <div id="modalResenas" class="modal">
+  <div id="modalReseñas" class="modal">
     <div class="modal-contenido">
       <span class="cerrar" onclick="cerrarModal()">&times;</span>
       <h3 id="tituloResena"></h3>
@@ -63,7 +57,7 @@
           <span data-valor="5">☆</span>
         </div>
         <textarea id="comentarioResena" placeholder="Escribe tu reseña aquí..."></textarea>
-        <button onclick="guardarResenaDesdeModal()">Guardar reseña</button>
+        <button onclick="guardarResena()">Guardar reseña</button>
       </div>
     </div>
   </div>

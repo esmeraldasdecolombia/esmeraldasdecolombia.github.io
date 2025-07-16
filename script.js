@@ -1,4 +1,6 @@
+
 let productosGlobal = [];
+let carrito = [];
 
 async function cargarProductos() {
   try {
@@ -49,7 +51,56 @@ document.getElementById("buscador").addEventListener("input", function () {
 });
 
 function agregarCarrito(codigo) {
-  alert("Producto " + codigo + " añadido al carrito.");
+  const producto = productosGlobal.find(p => p.codigo === codigo);
+  if (!producto) return;
+
+  const existente = carrito.find(p => p.codigo === codigo);
+  if (existente) {
+    existente.cantidad++;
+  } else {
+    carrito.push({ ...producto, cantidad: 1 });
+  }
+
+  actualizarCarrito();
+}
+
+function actualizarCarrito() {
+  const lista = document.getElementById("listaCarrito");
+  const total = document.getElementById("totalCarrito");
+  lista.innerHTML = "";
+
+  let suma = 0;
+
+  carrito.forEach(prod => {
+    const precio = parseInt(prod.precio) * prod.cantidad;
+    suma += precio;
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${prod.nombre} x${prod.cantidad}
+      <span>${precio.toLocaleString()} COP</span>
+      <button onclick="eliminarDelCarrito('${prod.codigo}')">❌</button>
+    `;
+    lista.appendChild(li);
+  });
+
+  total.textContent = "Total: " + suma.toLocaleString() + " COP";
+}
+
+function eliminarDelCarrito(codigo) {
+  carrito = carrito.filter(p => p.codigo !== codigo);
+  actualizarCarrito();
+}
+
+function vaciarCarrito() {
+  carrito = [];
+  actualizarCarrito();
+}
+
+function toggleCarrito() {
+  const carritoDiv = document.getElementById("carrito");
+  carritoDiv.style.display = carritoDiv.style.display === "none" ? "block" : "none";
 }
 
 cargarProductos();
+

@@ -1,6 +1,7 @@
 
 let productosGlobal = [];
 let carrito = [];
+let reseñas = {}; // Objeto para guardar reseñas por código
 
 async function cargarProductos() {
   try {
@@ -37,6 +38,8 @@ function mostrarProductos(lista) {
       ? `<img class="imagen2" src="${prod.imagen2}" alt="${prod.nombre}" />`
       : "";
 
+    const estrellasHTML = obtenerEstrellasHTML(prod.codigo);
+
     contenedor.innerHTML += `
       <div class="producto">
         <div class="imagen-con-etiqueta">
@@ -48,10 +51,43 @@ function mostrarProductos(lista) {
         <p>${prod.descripcion}</p>
         ${htmlPrecio}
         <p>Stock: ${prod.stock}</p>
+        <div class="resenas">${estrellasHTML}</div>
         <button onclick="agregarCarrito('${prod.codigo}')">Añadir al carrito</button>
+        <button onclick="mostrarFormularioResena('${prod.codigo}')">Dejar Reseña</button>
       </div>
     `;
   });
+}
+
+function obtenerEstrellasHTML(codigo) {
+  const lista = reseñas[codigo] || [];
+  if (!lista.length) return '<p>Sin reseñas</p>';
+
+  const promedio = lista.reduce((acc, r) => acc + r.estrellas, 0) / lista.length;
+  const estrellas = Math.round(promedio);
+  let html = '<div class="estrellas">';
+  for (let i = 1; i <= 5; i++) {
+    html += `<span>${i <= estrellas ? '★' : '☆'}</span>`;
+  }
+  html += ` <small>(${lista.length} reseñas)</small></div>`;
+  return html;
+}
+
+function mostrarFormularioResena(codigo) {
+  const nombre = prompt("Tu nombre:");
+  if (!nombre) return;
+
+  let estrellas = prompt("¿Cuántas estrellas le das? (1 a 5):");
+  estrellas = parseInt(estrellas);
+  if (isNaN(estrellas) || estrellas < 1 || estrellas > 5) return alert("Número inválido");
+
+  const comentario = prompt("¿Qué opinas del producto?");
+  if (!comentario) return;
+
+  if (!reseñas[codigo]) reseñas[codigo] = [];
+  reseñas[codigo].push({ nombre, estrellas, comentario });
+
+  mostrarProductos(productosGlobal);
 }
 
 function filtrarCategoria(categoria) {
@@ -127,3 +163,4 @@ function toggleCarrito() {
 }
 
 cargarProductos();
+

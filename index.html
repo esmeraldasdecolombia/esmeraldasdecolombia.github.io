@@ -14,6 +14,19 @@
     <h1>Esmeraldas de Colombia</h1>
   </header>
   <main>
+    <section id="filtros">
+  <input type="text" id="buscador" placeholder="Buscar por nombre o código..." />
+  <div id="categorias">
+    <button onclick="filtrarCategoria('')">Todos</button>
+    <button onclick="filtrarCategoria('anillos')">Anillos</button>
+    <button onclick="filtrarCategoria('aretes')">Aretes</button>
+    <button onclick="filtrarCategoria('collares')">Collares</button>
+    <button onclick="filtrarCategoria('pulseras')">Pulseras</button>
+    <button onclick="filtrarCategoria('dijes')">Dijes</button>
+    <button onclick="filtrarCategoria('piedras')">Piedras</button>
+  </div>
+</section>
+
     <h2>Catálogo</h2>
     <div id="catalogo">Cargando productos...</div>
     <div id="mensajeError" style="color:red; margin-top:20px;"></div>

@@ -157,6 +157,23 @@ h2 {
   margin-right: 5px;
 }
 
+/* Estrellas de reseñas */
+.estrellas {
+  color: gold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.reseñas {
+  margin-top: 10px;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.reseñas p {
+  margin: 4px 0;
+}
+
 /* Botones */
 button {
   background: linear-gradient(to right, #d4af37, #c0972f);
@@ -299,3 +316,4 @@ footer {
   padding: 20px 0;
   border-top: 1px solid #ddd;
 }
+

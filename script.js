@@ -1,7 +1,8 @@
 
 let productosGlobal = [];
 let carrito = [];
-let reseñas = {}; // Objeto para guardar reseñas por código
+let reseñas = {};
+let productoActivo = null;
 
 async function cargarProductos() {
   try {
@@ -53,7 +54,7 @@ function mostrarProductos(lista) {
         <p>Stock: ${prod.stock}</p>
         <div class="resenas">${estrellasHTML}</div>
         <button onclick="agregarCarrito('${prod.codigo}')">Añadir al carrito</button>
-        <button onclick="mostrarFormularioResena('${prod.codigo}')">Dejar Reseña</button>
+        <button onclick="abrirModal('${prod.codigo}', '${prod.nombre}')">Dejar Reseña</button>
       </div>
     `;
   });
@@ -73,20 +74,46 @@ function obtenerEstrellasHTML(codigo) {
   return html;
 }
 
-function mostrarFormularioResena(codigo) {
-  const nombre = prompt("Tu nombre:");
-  if (!nombre) return;
+function abrirModal(codigo, nombre) {
+  productoActivo = codigo;
+  document.getElementById("modalReseñas").style.display = "block";
+  document.getElementById("tituloReseña").textContent = `Reseñas para ${nombre}`;
+  document.getElementById("nuevaReseña").value = "";
+  cargarEstrellasInteractivas();
+}
 
-  let estrellas = prompt("¿Cuántas estrellas le das? (1 a 5):");
-  estrellas = parseInt(estrellas);
-  if (isNaN(estrellas) || estrellas < 1 || estrellas > 5) return alert("Número inválido");
+function cerrarModal() {
+  document.getElementById("modalReseñas").style.display = "none";
+}
 
-  const comentario = prompt("¿Qué opinas del producto?");
-  if (!comentario) return;
+function cargarEstrellasInteractivas() {
+  const contenedor = document.getElementById("estrellasInput");
+  contenedor.innerHTML = "";
+  for (let i = 1; i <= 5; i++) {
+    const estrella = document.createElement("span");
+    estrella.textContent = "☆";
+    estrella.dataset.valor = i;
+    estrella.addEventListener("click", seleccionarEstrella);
+    contenedor.appendChild(estrella);
+  }
+}
 
-  if (!reseñas[codigo]) reseñas[codigo] = [];
-  reseñas[codigo].push({ nombre, estrellas, comentario });
+function seleccionarEstrella(e) {
+  const valor = parseInt(e.target.dataset.valor);
+  document.querySelectorAll("#estrellasInput span").forEach(star => {
+    star.textContent = parseInt(star.dataset.valor) <= valor ? "★" : "☆";
+  });
+  document.getElementById("estrellasInput").dataset.valor = valor;
+}
 
+function guardarReseña() {
+  const comentario = document.getElementById("nuevaReseña").value.trim();
+  const estrellas = parseInt(document.getElementById("estrellasInput").dataset.valor || 0);
+  if (!comentario || estrellas < 1 || estrellas > 5 || !productoActivo) return alert("Por favor completa todos los campos");
+
+  if (!reseñas[productoActivo]) reseñas[productoActivo] = [];
+  reseñas[productoActivo].push({ comentario, estrellas });
+  cerrarModal();
   mostrarProductos(productosGlobal);
 }
 
@@ -163,4 +190,3 @@ function toggleCarrito() {
 }
 
 cargarProductos();
-

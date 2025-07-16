@@ -47,6 +47,21 @@
     <button onclick="vaciarCarrito()">Vaciar carrito</button>
   </div>
 
+  <!-- Modal de reseñas -->
+  <div id="modalReseñas" class="modal">
+    <div class="modal-contenido">
+      <span class="cerrar" onclick="cerrarModal()">&times;</span>
+      <h3 id="tituloReseña"></h3>
+      <div id="listaReseñas"></div>
+      <div id="formReseña">
+        <label for="estrellas">Tu calificación:</label>
+        <div id="estrellasInput" class="estrellas">★★★★★</div>
+        <textarea id="nuevaReseña" placeholder="Escribe tu reseña aquí..."></textarea>
+        <button onclick="guardarReseña()">Guardar reseña</button>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2025 Esmeraldas de Colombia</p>
   </footer>

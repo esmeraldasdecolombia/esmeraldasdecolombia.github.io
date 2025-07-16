@@ -22,12 +22,26 @@ function mostrarProductos(lista) {
   lista.forEach(prod => {
     if (!prod.nombre || !prod.imagen1) return;
 
+    const oferta = prod.oferta?.replace('%', '').trim();
+    const descuento = oferta ? parseFloat(oferta) : 0;
+    const precioOriginal = parseFloat(prod.precio);
+    const precioFinal = descuento ? precioOriginal * (1 - descuento / 100) : precioOriginal;
+
+    const etiquetaOferta = descuento ? `<span class="etiqueta-oferta">${descuento}% OFF</span>` : "";
+
+    const htmlPrecio = descuento
+      ? `<p><span class="tachado">${precioOriginal.toLocaleString()} COP</span> <strong>${precioFinal.toLocaleString()} COP</strong></p>`
+      : `<p><strong>${precioOriginal.toLocaleString()} COP</strong></p>`;
+
     contenedor.innerHTML += `
       <div class="producto">
-        <img src="${prod.imagen1}" alt="${prod.nombre}" />
+        <div class="imagen-con-etiqueta">
+          <img src="${prod.imagen1}" alt="${prod.nombre}" />
+          ${etiquetaOferta}
+        </div>
         <h3>${prod.nombre}</h3>
         <p>${prod.descripcion}</p>
-        <p><strong>${prod.precio} COP</strong></p>
+        ${htmlPrecio}
         <p>Stock: ${prod.stock}</p>
         <button onclick="agregarCarrito('${prod.codigo}')">Añadir al carrito</button>
       </div>
@@ -72,13 +86,18 @@ function actualizarCarrito() {
   let suma = 0;
 
   carrito.forEach(prod => {
-    const precio = parseInt(prod.precio) * prod.cantidad;
-    suma += precio;
+    const oferta = prod.oferta?.replace('%', '').trim();
+    const descuento = oferta ? parseFloat(oferta) : 0;
+    const precioUnitario = parseFloat(prod.precio);
+    const precioFinal = descuento ? precioUnitario * (1 - descuento / 100) : precioUnitario;
+    const totalProducto = precioFinal * prod.cantidad;
+
+    suma += totalProducto;
 
     const li = document.createElement("li");
     li.innerHTML = `
       ${prod.nombre} x${prod.cantidad}
-      <span>${precio.toLocaleString()} COP</span>
+      <span>${totalProducto.toLocaleString()} COP</span>
       <button onclick="eliminarDelCarrito('${prod.codigo}')">❌</button>
     `;
     lista.appendChild(li);

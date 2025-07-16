@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,26 +14,31 @@
     <img src="https://i.imgur.com/NA1n3Fo.png" alt="Logo Esmeraldas" class="logo"/>
     <h1>Esmeraldas de Colombia</h1>
   </header>
+
   <main>
+    <!-- Filtros y buscador -->
     <section id="filtros">
-  <input type="text" id="buscador" placeholder="Buscar por nombre o código..." />
-  <div id="categorias">
-    <button onclick="filtrarCategoria('')">Todos</button>
-    <button onclick="filtrarCategoria('anillos')">Anillos</button>
-    <button onclick="filtrarCategoria('aretes')">Aretes</button>
-    <button onclick="filtrarCategoria('collares')">Collares</button>
-    <button onclick="filtrarCategoria('pulseras')">Pulseras</button>
-    <button onclick="filtrarCategoria('dijes')">Dijes</button>
-    <button onclick="filtrarCategoria('piedras')">Piedras</button>
-  </div>
-</section>
-    
+      <input type="text" id="buscador" placeholder="Buscar por nombre o código..." />
+      <div id="categorias">
+        <button onclick="filtrarCategoria('')">Todos</button>
+        <button onclick="filtrarCategoria('anillos')">Anillos</button>
+        <button onclick="filtrarCategoria('aretes')">Aretes</button>
+        <button onclick="filtrarCategoria('collares')">Collares</button>
+        <button onclick="filtrarCategoria('pulseras')">Pulseras</button>
+        <button onclick="filtrarCategoria('dijes')">Dijes</button>
+        <button onclick="filtrarCategoria('piedras')">Piedras</button>
+      </div>
+    </section>
+
+    <!-- Catálogo -->
     <h2>Catálogo</h2>
     <div id="catalogo">Cargando productos...</div>
     <div id="mensajeError" style="color:red; margin-top:20px;"></div>
   </main>
+
   <footer>
     <p>&copy; 2025 Esmeraldas de Colombia</p>
   </footer>
 </body>
 </html>
+

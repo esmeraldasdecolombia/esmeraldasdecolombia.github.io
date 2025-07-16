@@ -26,21 +26,22 @@ function mostrarProductos(lista) {
     const descuento = oferta ? parseFloat(oferta) : 0;
     const precioOriginal = parseFloat(prod.precio);
     const precioFinal = descuento ? precioOriginal * (1 - descuento / 100) : precioOriginal;
+
     const etiquetaOferta = descuento ? `<span class="etiqueta-oferta">${descuento}% OFF</span>` : "";
 
     const htmlPrecio = descuento
       ? `<p><span class="tachado">${precioOriginal.toLocaleString()} COP</span> <strong>${precioFinal.toLocaleString()} COP</strong></p>`
       : `<p><strong>${precioOriginal.toLocaleString()} COP</strong></p>`;
 
-    const imagen2 = prod.imagen2?.trim();
-    const eventoHover = imagen2
-      ? `onmouseover="this.src='${imagen2}'" onmouseout="this.src='${prod.imagen1}'"`
+    const imagen2HTML = prod.imagen2
+      ? `<img class="imagen2" src="${prod.imagen2}" alt="${prod.nombre}" />`
       : "";
 
     contenedor.innerHTML += `
       <div class="producto">
         <div class="imagen-con-etiqueta">
-          <img src="${prod.imagen1}" alt="${prod.nombre}" ${eventoHover}/>
+          <img class="imagen1" src="${prod.imagen1}" alt="${prod.nombre}" />
+          ${imagen2HTML}
           ${etiquetaOferta}
         </div>
         <h3>${prod.nombre}</h3>
@@ -126,5 +127,3 @@ function toggleCarrito() {
 }
 
 cargarProductos();
-
-

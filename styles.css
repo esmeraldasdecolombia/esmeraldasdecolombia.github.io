@@ -7,6 +7,14 @@ body {
   color: #1b1b1b;
   margin: 0;
   padding: 20px;
+  scroll-behavior: smooth;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Fade general */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 header {
@@ -24,8 +32,21 @@ header h1 {
   margin: 0;
 }
 
+/* Animación de entrada para el logo */
 .logo {
   width: 100px;
+  animation: zoomLogo 1s ease-out;
+}
+
+@keyframes zoomLogo {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 h2 {
@@ -43,6 +64,7 @@ h2 {
   justify-content: center;
 }
 
+/* Animación con delay por producto */
 .producto {
   background-color: white;
   border: 2px solid #d4af37;
@@ -50,12 +72,24 @@ h2 {
   padding: 20px;
   width: 260px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s;
   text-align: center;
+
+  /* animación suave al aparecer */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: aparecer 0.6s ease forwards;
+}
+
+@keyframes aparecer {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .producto:hover {
   transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .producto img {
@@ -63,6 +97,11 @@ h2 {
   border-radius: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
+  transition: transform 0.3s ease;
+}
+
+.producto img:hover {
+  transform: scale(1.02);
 }
 
 .producto h3 {
@@ -77,6 +116,7 @@ h2 {
   font-size: 0.95rem;
 }
 
+/* Botones */
 button {
   background: linear-gradient(to right, #d4af37, #c0972f);
   color: white;
@@ -87,11 +127,12 @@ button {
   cursor: pointer;
   margin-top: 10px;
   font-size: 1rem;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
   background: linear-gradient(to right, #c0972f, #b08a25);
+  transform: scale(1.05);
 }
 
 footer {
@@ -101,5 +142,4 @@ footer {
   padding: 20px 0;
   border-top: 1px solid #ddd;
 }
-
 

@@ -73,8 +73,6 @@ h2 {
   width: 260px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   text-align: center;
-
-  /* animación suave al aparecer */
   opacity: 0;
   transform: translateY(30px);
   animation: aparecer 0.6s ease forwards;
@@ -143,42 +141,7 @@ footer {
   border-top: 1px solid #ddd;
 }
 
-#filtros {
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-#buscador {
-  padding: 10px;
-  width: 60%;
-  max-width: 400px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-#categorias {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-#categorias button {
-  background-color: #014737;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s;
-}
-
-#categorias button:hover {
-  background-color: #016b50;
-}
-
+/* Filtros */
 #filtros {
   margin-bottom: 30px;
   text-align: center;

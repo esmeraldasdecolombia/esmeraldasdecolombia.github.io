@@ -192,4 +192,3 @@ function toggleCarrito() {
 }
 
 cargarProductos();
-// Aquí va el JS corregido del paso anterior

@@ -95,45 +95,37 @@ h2 {
 }
 
 .imagen-con-etiqueta img {
+  position: static;
+  display: block;
   width: 100%;
+  height: auto;
   border-radius: 10px;
-  border: 1px solid #ccc;
-  position: absolute;
-  top: 0;
-  left: 0;
   transition: opacity 0.5s ease;
 }
 
-.imagen1 {
-  opacity: 1;
-  z-index: 1;
-}
-
 .imagen2 {
-  opacity: 0;
-  z-index: 2;
+  display: none;
 }
 
 .imagen-con-etiqueta:hover .imagen1 {
-  opacity: 0;
+  display: none;
 }
 
 .imagen-con-etiqueta:hover .imagen2 {
-  opacity: 1;
+  display: block;
 }
 
 .etiqueta-oferta {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: crimson;
+  z-index: 2;
+  background-color: #e53935;
   color: white;
-  padding: 4px 8px;
-  font-size: 0.8rem;
+  padding: 5px 8px;
   font-weight: bold;
-  border-radius: 4px;
-  z-index: 3;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  font-size: 13px;
+  border-radius: 5px;
 }
 
 .producto h3 {
